@@ -10,12 +10,12 @@ import (
 )
 
 const (
-	empty int = iota
+	empty int8 = iota
 	x
 	o
 )
 
-type line [3]int
+type line [3]int8
 
 type grid [8]line
 
@@ -32,7 +32,7 @@ func (g *grid) check() bool {
 	return false
 }
 
-func (g *grid) place(x, y, val int) {
+func (g *grid) place(x, y, val int8) {
 	if g[x][y] != empty {
 		fmt.Println("This spot is taken")
 	} else {
@@ -53,18 +53,18 @@ func start(in io.Reader, out io.Writer) {
 	gb := &grid{}
 	scanner := bufio.NewScanner(in)
 	players := [2]string{"X", "O"}
-	player := -1
+	var player int8 = -1
 
 	for {
 		player = (player + 1) % 2
 		fmt.Printf("%s: ", players[player])
 		scanner.Scan()
 		s := strings.Split(scanner.Text(), ",")
-		x, _ := strconv.Atoi(s[0])
-		y, _ := strconv.Atoi(s[1])
+		x, _ := strconv.ParseInt(s[0], 10, 8)
+		y, _ := strconv.ParseInt(s[1], 10, 8)
+		x8, y8 := int8(x), int8(y)
 
-		fmt.Println(gb)
-		gb.place(x, y, player+1)
+		gb.place(x8, y8, player+1)
 		if gb.check() {
 			fmt.Printf("%s is the winner!", players[player])
 			return
