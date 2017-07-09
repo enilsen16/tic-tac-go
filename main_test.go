@@ -13,22 +13,30 @@ func TestLine(t *testing.T) {
 	}
 
 	for _, tt := range tests {
-		if tt.line.checkLine() != tt.expectedResult {
+		if tt.line.check() != tt.expectedResult {
 			t.Fatalf("Nope")
 			return
 		}
 	}
 }
 
-// func TestInput(t *testing.T) {
-// 	tests := []line{
-// 		{x, null, x},
-// 		{o, x, o},
-// 		{x, null, o},
-// 		{x, o, x},
-// 		{null, x, null},
-// 		{x, o, o},
-// 		{x, x, o},
-// 		{x, x, x},
-// 	}
-// }
+func TestInput(t *testing.T) {
+	test := struct {
+		g        *grid
+		expected bool
+	}{
+		&grid{
+			{x, empty, x},
+			{o, x, o},
+			{x, empty, o},
+			{x, o, x},
+			{empty, x, empty},
+			{x, o, o},
+			{x, x, o},
+			{x, x, x},
+		}, true}
+
+	if winner, _ := test.g.check(); winner != test.expected {
+		t.Fatalf("Nope")
+	}
+}
