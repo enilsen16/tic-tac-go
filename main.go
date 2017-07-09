@@ -37,6 +37,15 @@ func (g *grid) place(x, y, val int) {
 		fmt.Println("This spot is taken")
 	} else {
 		g[x][y] = val
+		g[x+3][y] = val
+		if x == 1 && y == 1 {
+			g[6][y] = val
+			g[7][y] = val
+		} else if x == y {
+			g[6][y] = val
+		} else if x%2 == 0 && y%2 == 0 {
+			g[7][y] = val
+		}
 	}
 }
 
@@ -54,6 +63,7 @@ func start(in io.Reader, out io.Writer) {
 		x, _ := strconv.Atoi(s[0])
 		y, _ := strconv.Atoi(s[1])
 
+		fmt.Println(gb)
 		gb.place(x, y, player+1)
 		if gb.check() {
 			fmt.Printf("%s is the winner!", players[player])
