@@ -36,7 +36,7 @@ func TestInput(t *testing.T) {
 			{x, x, x},
 		}, true}
 
-	if winner, _ := test.g.check(); winner != test.expected {
+	if winner := test.g.check(); winner != test.expected {
 		t.Fatalf("Nope")
 	}
 }
