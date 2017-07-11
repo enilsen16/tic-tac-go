@@ -35,17 +35,17 @@ func (g *grid) check() bool {
 func (g *grid) place(x, y, val int8) {
 	if g[x][y] != empty {
 		fmt.Println("This spot is taken")
-	} else {
-		g[x][y] = val
-		g[x+3][y] = val
-		if x == 1 && y == 1 {
-			g[6][y] = val
-			g[7][y] = val
-		} else if x == y {
-			g[6][y] = val
-		} else if x%2 == 0 && y%2 == 0 {
-			g[7][y] = val
-		}
+		return
+	}
+	g[x][y] = val
+	g[x+3][y] = val
+	if x == 1 && y == 1 {
+		g[6][y] = val
+		g[7][y] = val
+	} else if x == y {
+		g[6][y] = val
+	} else if x%2 == 0 && y%2 == 0 {
+		g[7][y] = val
 	}
 }
 
