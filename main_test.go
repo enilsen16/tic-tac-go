@@ -40,3 +40,29 @@ func TestInput(t *testing.T) {
 		t.Fatalf("Nope")
 	}
 }
+
+func TestWinningGame(t *testing.T) {
+	gb := &grid{}
+	gb.place(int8(0), int8(0), 1)
+	assertEquals(t, gb.check(), false)
+
+	gb.place(int8(2), int8(0), 2)
+	assertEquals(t, gb.check(), false)
+
+	gb.place(int8(0), int8(1), 1)
+	assertEquals(t, gb.check(), false)
+
+	gb.place(int8(2), int8(2), 2)
+	assertEquals(t, gb.check(), false)
+
+	gb.place(int8(0), int8(2), 1)
+	assertEquals(t, gb.check(), true)
+}
+
+// Unfortuantely while this is convient, it hides exactly where the error failed
+// Leave for now
+func assertEquals(t *testing.T, value, expected bool) {
+	if value != expected {
+		t.Fatalf("Values didn't match")
+	}
+}
